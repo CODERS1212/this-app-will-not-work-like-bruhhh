@@ -1,0 +1,166 @@
+<html>
+
+
+
+
+
+
+<head>
+
+
+  <title>Real Time Image Identification App</title>
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.0.0/p5.js"></script>
+
+
+  <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
+
+
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+
+
+
+
+
+</head>
+
+
+
+
+
+
+<body
+  background="data:image/jpeg;base64,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">
+
+
+  <center>
+
+
+    <h3 class="btn-primary heading">Real Time Image Identification App
+
+
+      <hr>
+
+
+      <center>
+
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 heading_div">
+
+
+          We are using Mobilenet as a Model
+
+
+          <br>
+
+
+          <div class="btn heading_div2">
+
+
+            Mobilenet model is trained on <br> more then 1.3 million images
+
+
+          </div>
+
+
+        </div>
+
+
+      </center>
+
+
+      <br>
+
+
+    </h3>
+
+
+    <br><br>
+
+
+
+
+
+
+    <p class="btn btn-success result_para_tag">Object :
+
+
+      <span id="result_object_name"></span>
+
+
+    </p>
+
+
+
+
+
+
+    <br><br>
+
+
+    <p class="btn btn-success result_para_tag">Accuracy :
+
+
+      <span id="result_object_accuracy"></span>
+
+
+    </p>
+
+
+
+
+
+
+  </center>
+
+
+
+
+
+
+  <div class="copy_right_footer">
+
+
+    DeVeLoPeD bY : sUhAnA pAtEl
+
+
+  </div>
+
+
+
+
+
+
+  <script src="main.js"></script>
+
+
+</body>
+
+
+
+
+
+
+</html>
